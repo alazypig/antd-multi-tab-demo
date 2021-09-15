@@ -1,13 +1,14 @@
 import React from 'react'
+import {BrowserRouter as Router} from 'react-router-dom'
 
 import './App.css'
-import Home from './layout/home'
+import Routes from './routes'
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <Home />
-    </div>
+    <Router>
+      <Routes />
+    </Router>
   )
 }
 

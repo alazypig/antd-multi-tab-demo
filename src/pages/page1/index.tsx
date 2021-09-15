@@ -1,7 +1,21 @@
+import {Input} from 'antd'
 import React from 'react'
 
 const Page1: React.FC = () => {
-  return <div>Page1</div>
+  const [value, setValue] = React.useState('')
+
+  return (
+    <div>
+      <Input
+        style={{width: '100px'}}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <div>
+        value from state: <span style={{color: 'red'}}>{value}</span>
+      </div>
+    </div>
+  )
 }
 
 export default Page1

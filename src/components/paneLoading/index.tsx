@@ -12,6 +12,7 @@ const PaneLoading: React.FC<{content?: string}> = ({content}) => {
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
+        textAlign: 'center',
         justifyContent: 'center',
         alignContent: 'center',
       }}>
