@@ -2,32 +2,51 @@ import {Tabs} from 'antd'
 import React from 'react'
 import {useHistory, useLocation} from 'react-router-dom'
 
+import {TabRoute} from '../../types'
 import PaneLoading from '../paneLoading'
 import {TabProps} from './types'
 
-export const routesMap = new Map<string, TabProps>()
-
-const MultiTabs: React.FC = () => {
+const MultiTabs: React.FC<{routes: TabRoute[]}> = ({routes}) => {
   const location = useLocation()
   const history = useHistory<{rerender: false}>()
   const [panes, setPane] = React.useState<TabProps[]>([])
+  const [routeMap] = React.useState(() => {
+    const map = new Map<string, TabProps>()
+
+    function recursion(routes: TabRoute[]) {
+      routes.forEach((i) => {
+        if (!i.children && i.component) {
+          map.set(i.path, {
+            title: i.title,
+            tabKey: i.path,
+            component: i.component,
+          })
+        }
+
+        if (i.children) recursion(i.children)
+      })
+    }
+
+    recursion(routes)
+
+    return map
+  })
 
   const rerender = history.location.state?.rerender ?? true
   const path = location.pathname
 
   const component = React.useMemo(
     () =>
-      routesMap.get(path) ?? {
+      routeMap.get(path) ?? {
         title: 'Not found',
         component: null,
         tabKey: 'NOT_FOUND',
       },
-    [path],
+    [path, routeMap],
   )
 
   const paneFactory = React.useCallback(
     (panes: TabProps[]) => {
-      console.log(rerender, panes)
       if (!rerender && panes.length) return panes
 
       if (panes.length) {
@@ -35,7 +54,6 @@ const MultiTabs: React.FC = () => {
 
         if (index !== -1) {
           if (rerender) {
-            console.log('here', panes[index])
             const component = panes[index].component
 
             panes[index].component = null

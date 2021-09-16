@@ -6,8 +6,8 @@ import Home from '../layout/home'
 const Routes: React.FC = () => {
   return (
     <Switch>
-      <Route path="/" component={Home} />
-      <Redirect to="/" />
+      <Route path="/home" component={Home} />
+      <Redirect to="/home/page1" />
     </Switch>
   )
 }

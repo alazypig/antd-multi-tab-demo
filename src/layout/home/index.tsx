@@ -2,7 +2,7 @@ import {Layout, Menu} from 'antd'
 import React from 'react'
 import {useLocation, useHistory} from 'react-router-dom'
 
-import MultiTabs, {routesMap} from '../../components/multiTabs'
+import MultiTabs from '../../components/multiTabs'
 import routes from '../../pages'
 import {TabRoute} from '../../types'
 
@@ -12,39 +12,15 @@ const Home: React.FC = () => {
 
   const paths = location.pathname.split('/').filter((i) => i)
   const [openKeys, setOpenKeys] = React.useState<string[]>(() => {
-    if (paths.length > 1) {
-      const res: string[] = []
+    if (!paths.length || paths.length <= 1) return []
 
-      paths.reduce((p, c, i) => {
-        if (i < paths.length - 1) {
-          const path = p + '/' + c
-          if (i > 0) {
-            res.push(path)
-          }
-
-          return path
-        }
-        return p
-      }, '')
-
-      return res
-    }
-
-    return []
+    return ['/' + paths.slice(0, -1).join('/') + '/']
   })
 
   const recursionRoute = (routes: TabRoute[]) => {
     if (!routes) return null
 
     return routes.map((route) => {
-      if (!route.children && route.component) {
-        routesMap.set(route.path, {
-          title: route.title,
-          tabKey: route.path,
-          component: route.component,
-        })
-      }
-
       if (route.children) {
         return (
           <Menu.SubMenu
@@ -87,7 +63,7 @@ const Home: React.FC = () => {
         </Layout.Header>
 
         <Layout.Content>
-          <MultiTabs />
+          <MultiTabs routes={routes} />
         </Layout.Content>
       </Layout>
     </Layout>
