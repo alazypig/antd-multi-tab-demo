@@ -1,7 +1,24 @@
 {
   "name": "antd-multi-tab-demo",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "author": {
+    "name": "Edward Wang"
+  },
   "private": true,
+  "description": "Antd Multi-Tabs Demo",
+  "keywords": [
+    "antd",
+    "tabs",
+    "typescript",
+    "dashboard",
+    "management",
+    "multi-tabs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alazypig/antd-multi-tab-demo"
+  },
+  "license": "MIT",
   "dependencies": {
     "@ant-design/icons": "^4.6.4",
     "@testing-library/jest-dom": "^5.11.4",
@@ -14,8 +31,10 @@
     "antd": "^4.16.13",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "typescript": "^4.1.2",
+    "user-agents": "^1.0.775",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -44,6 +63,7 @@
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^2.0.4",
+    "@types/react-router-dom": "^5.1.9",
     "prettier": "^2.4.0"
   }
 }
